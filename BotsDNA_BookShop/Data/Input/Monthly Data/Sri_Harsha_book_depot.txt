@@ -1,0 +1,14 @@
+Monthly Sales Report
+---------------------------------------------------------
+---------------------------------------------------------
+Book Name |No Of Books Sale
+My Truth|100
+Lipika|587
+The Golden Gate|385
+Gora|848
+The Guide|676
+My Days|785
+India First|854
+Two Sisters|536
+A Life|243
+Two Lives|554
