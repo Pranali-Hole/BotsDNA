@@ -1,0 +1,775 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System.Text.RegularExpressions" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_Ui_Browser" Type="InOutArgument(ui:Browser)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>738,3069</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="72">
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.Globalization</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>System.Windows.Forms</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.DocumentUnderstanding.Digitizer.Utils</x:String>
+      <x:String>UiPath.PDF.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="116">
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Linq.Parallel</AssemblyReference>
+      <AssemblyReference>System.Linq.Queryable</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Windows.Forms</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.DocumentUnderstanding.Digitizer</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="677,3004" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="str_PDFText" />
+      <Variable x:TypeArguments="x:String" Name="str_PdfFileName" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="635,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
+    <Assign DisplayName="Assign - Get File Name" sap:VirtualizedContainerService.HintSize="635,81" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[str_PdfFileName]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[(in_TransactionItem.Split("\").Last).Replace(".pdf", String.Empty)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Sequence DisplayName="Text Extraction and Manipulation" sap:VirtualizedContainerService.HintSize="635,2663" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="ienu_FileName" />
+        <Variable x:TypeArguments="x:String" Name="str_CustNumber" />
+        <Variable x:TypeArguments="x:String" Name="str_PaymentTransactionID" />
+        <Variable x:TypeArguments="x:String" Name="str_PaymentOnDate" />
+        <Variable x:TypeArguments="x:String" Name="str_PaymentTime" />
+        <Variable x:TypeArguments="x:String" Name="str_PaymentAmount" />
+        <Variable x:TypeArguments="x:String" Name="str_BillCollector" />
+        <Variable x:TypeArguments="s:String[]" Name="arr_str_PdfText" />
+        <Variable x:TypeArguments="s:DateTime" Name="datetime_PaymentPaidOn" />
+        <Variable x:TypeArguments="x:String" Name="str_PaidOn" />
+        <Variable x:TypeArguments="x:String" Name="str_MathsExpr" />
+        <Variable x:TypeArguments="x:Int32" Name="int_MathResult" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:ReadPDFText PreserveFormatting="{x:Null}" DisplayName="Read PDF Text" FileName="[in_TransactionItem]" sap:VirtualizedContainerService.HintSize="573,60" sap2010:WorkflowViewState.IdRef="ReadPDFText_1" Range="All" Text="[str_PDFText]" />
+      <ui:Matches BuilderPattern="[a-z]+|[0-9]+" DisplayName="Matches - Regular Expression" sap:VirtualizedContainerService.HintSize="510,60" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[str_PdfFileName]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;[a-z]+|[0-9]+&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="[a-z]+|[0-9]+" RegexOption="IgnoreCase, Compiled" Result="[ienu_Filename]" />
+      <ui:MultipleAssign DisplayName="Multiple Assign - Extract Required Vaues" sap:VirtualizedContainerService.HintSize="510,287" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+        <ui:MultipleAssign.AssignOperations>
+          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="s:String[]">[arr_str_PdfText]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="s:String[]">[str_PDFText.Split({Environment.NewLine},StringSplitOptions.RemoveEmptyEntries)]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[str_CustNumber]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">[ienu_FileName(1).Tostring]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[str_PaidOn]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">[arr_str_PdfText(0).ToString.Replace(" on ", "_")]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="s:DateTime">[datetime_PaymentPaidOn]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="s:DateTime">[DateTime.ParseExact( str_PaidOn.ToString, "hh:mm tt_dd MMM yyyy",System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[str_PaymentTransactionID]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">[arr_str_PdfText(1).ToString.Replace("T", String.Empty)]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[str_PaymentAmount]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">[Split( arr_str_PdfText(2).ToString, "₹")(1).ToString.Trim]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[str_BillCollector]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">[Split(arr_str_PdfText(2).ToString, "₹")(0).ToString.Remove(0,2)]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+          </scg:List>
+        </ui:MultipleAssign.AssignOperations>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:MultipleAssign>
+      <Assign DisplayName="Assign - Change Date Format" sap:VirtualizedContainerService.HintSize="573,81" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="s:DateTime">[datetime_PaymentPaidOn]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="s:DateTime">[DateTime.ParseExact( str_PaidOn.ToString, "hh:mm tt_dd MMM yyyy",System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Browser Chrome: https://botsdna.com/PayPowerBill/DAE.html" sap:VirtualizedContainerService.HintSize="573,1904" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InUiElement="[in_Ui_Browser]" InteractionMode="DebuggerApi" ScopeGuid="d5a0beae-927b-43e0-ab50-591211c8ff39" Version="V2">
+        <uix:NApplicationCard.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="539,1767" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Switch x:TypeArguments="x:String" DisplayName="Switch - Click Type of 'BILL PAYMENT'" Expression="[ienu_Filename(0).ToString]" sap:VirtualizedContainerService.HintSize="497,315" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+                <Switch.Default>
+                  <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'BAE BILL PAYMENT'" sap:VirtualizedContainerService.HintSize="334,107" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f237b368-281e-4b9b-9933-5c073c06f565" InformativeScreenshot="d4a576fe1e48b2e7727886b36a799e72" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl tag='A' aaname='DAE BILL PAYMENT' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:Click.Target>
+                  </ui:Click>
+                </Switch.Default>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" x:Key="DN" ClickType="CLICK_SINGLE" DisplayName="Click 'DEMAND NOTE BILL PAYMENT'" sap:VirtualizedContainerService.HintSize="334,107" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                  <ui:Click.CursorPosition>
+                    <ui:CursorPosition Position="Center">
+                      <ui:CursorPosition.OffsetX>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetX>
+                      <ui:CursorPosition.OffsetY>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetY>
+                    </ui:CursorPosition>
+                  </ui:Click.CursorPosition>
+                  <ui:Click.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f237b368-281e-4b9b-9933-5c073c06f565" InformativeScreenshot="72875eed98c6f10b6d806fb17d01c4e3" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl aaname='DEMAND NOTE BILL PAYMENT' tag='A' /&gt;">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                      <ui:Target.WaitForReady>
+                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                      </ui:Target.WaitForReady>
+                    </ui:Target>
+                  </ui:Click.Target>
+                </ui:Click>
+                <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" x:Key="EB" ClickType="CLICK_SINGLE" DisplayName="Click 'ENERGY BILL PAYMENT'" sap:VirtualizedContainerService.HintSize="334,107" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                  <ui:Click.CursorPosition>
+                    <ui:CursorPosition Position="Center">
+                      <ui:CursorPosition.OffsetX>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetX>
+                      <ui:CursorPosition.OffsetY>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetY>
+                    </ui:CursorPosition>
+                  </ui:Click.CursorPosition>
+                  <ui:Click.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f237b368-281e-4b9b-9933-5c073c06f565" InformativeScreenshot="3aad54f35b1cacf328c9f93890fb5f60" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl aaname='ENERGY BILL PAYMENT' tag='A' /&gt;">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                      <ui:Target.WaitForReady>
+                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                      </ui:Target.WaitForReady>
+                    </ui:Target>
+                  </ui:Click.Target>
+                </ui:Click>
+              </Switch>
+              <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into 'Installament Number'" sap:VirtualizedContainerService.HintSize="497,52" sap2010:WorkflowViewState.IdRef="TypeInto_1" Text="[str_CustNumber]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d2764c84-fa0a-4bcd-a8bb-5e06950a6615" InformativeScreenshot="778288535a17cc739445beec0c77c896" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tag='INPUT' placeholder='* Number' type='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:TypeInto>
+              <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into 'Transaction ID'" sap:VirtualizedContainerService.HintSize="497,52" sap2010:WorkflowViewState.IdRef="TypeInto_2" Text="[str_PaymentTransactionID]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="a09560d9-0ddb-4d99-ba15-4331ebe3bbad" InformativeScreenshot="1fd0c93915ad3ae97bad9bc22cea921b" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tag='INPUT' placeholder='Transaction ID' type='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:TypeInto>
+              <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into 'Amount Paid'" sap:VirtualizedContainerService.HintSize="497,52" sap2010:WorkflowViewState.IdRef="TypeInto_3" Text="[str_PaymentAmount]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1e1b6037-9eb3-48a0-813b-c58dc427bcc8" InformativeScreenshot="b65ff60243eedc628f31ee1745f4becd" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tag='INPUT' placeholder='Amount' type='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:TypeInto>
+              <Sequence DisplayName="Select - Date &amp; Time Item" sap:VirtualizedContainerService.HintSize="497,81" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'Day'" sap:VirtualizedContainerService.HintSize="338,52" sap2010:WorkflowViewState.IdRef="SelectItem_2" Item="[datetime_PaymentPaidOn.ToString(&quot;dd&quot;)]">
+                  <ui:SelectItem.Items>
+                    <scg:List x:TypeArguments="x:String" Capacity="32">
+                      <x:String>DD</x:String>
+                      <x:String>01</x:String>
+                      <x:String>02</x:String>
+                      <x:String>03</x:String>
+                      <x:String>04</x:String>
+                      <x:String>05</x:String>
+                      <x:String>06</x:String>
+                      <x:String>07</x:String>
+                      <x:String>08</x:String>
+                      <x:String>09</x:String>
+                      <x:String>10</x:String>
+                      <x:String>11</x:String>
+                      <x:String>12</x:String>
+                      <x:String>13</x:String>
+                      <x:String>14</x:String>
+                      <x:String>15</x:String>
+                      <x:String>16</x:String>
+                      <x:String>17</x:String>
+                      <x:String>18</x:String>
+                      <x:String>19</x:String>
+                      <x:String>20</x:String>
+                      <x:String>21</x:String>
+                      <x:String>22</x:String>
+                      <x:String>23</x:String>
+                      <x:String>24</x:String>
+                      <x:String>25</x:String>
+                      <x:String>26</x:String>
+                      <x:String>27</x:String>
+                      <x:String>28</x:String>
+                      <x:String>29</x:String>
+                      <x:String>30</x:String>
+                      <x:String>31</x:String>
+                    </scg:List>
+                  </ui:SelectItem.Items>
+                  <ui:SelectItem.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="fe56fa7c-6c76-4d64-b936-6cc3114d670b" InformativeScreenshot="a4eaa54b1c00c7ed57c31d1c4b3af766" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tag='SELECT' innertext='DD 01 &amp;#x9;    02 &amp;#x9;    03             04             05 &amp;#x9;    06 &amp;#x9;    07 &amp;#x9;    08 &amp;#x9;    09 &amp;#x9;    10 &amp;#x9;    11 &amp;#x9;    12 &amp;#x9;    13             14 &amp;#x9;    15 &amp;#x9;    16             17             18 &amp;#x9;    19 &amp;#x9;    20 &amp;#x9;    21 &amp;#x9;    22 &amp;#x9;    23 &amp;#x9;    24 &amp;#x9;    25             26 &amp;#x9;    27 &amp;#x9;    28 &amp;#x9;    29 &amp;#x9;    30 &amp;#x9;    31' rowName='Paid on : ' /&gt;">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                      <ui:Target.WaitForReady>
+                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                      </ui:Target.WaitForReady>
+                    </ui:Target>
+                  </ui:SelectItem.Target>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:SelectItem>
+                <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'Month'" sap:VirtualizedContainerService.HintSize="338,52" sap2010:WorkflowViewState.IdRef="SelectItem_3" Item="[datetime_PaymentPaidOn.ToString(&quot;MMMM&quot;)]">
+                  <ui:SelectItem.Items>
+                    <scg:List x:TypeArguments="x:String" Capacity="16">
+                      <x:String>Month</x:String>
+                      <x:String>January</x:String>
+                      <x:String>February</x:String>
+                      <x:String>March</x:String>
+                      <x:String>April</x:String>
+                      <x:String>May</x:String>
+                      <x:String>June</x:String>
+                      <x:String>July</x:String>
+                      <x:String>August</x:String>
+                      <x:String>September</x:String>
+                      <x:String>October</x:String>
+                      <x:String>November</x:String>
+                      <x:String>December</x:String>
+                    </scg:List>
+                  </ui:SelectItem.Items>
+                  <ui:SelectItem.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="fe56fa7c-6c76-4d64-b936-6cc3114d670b" InformativeScreenshot="d5d17932fc01e59274acb17e6d82951a" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl tag='TABLE' idx='*' /&gt;&lt;webctrl tag='SELECT' innertext='Month              January &amp;#x9;    February &amp;#x9;    March &amp;#x9;    April &amp;#x9;    May &amp;#x9;    June &amp;#x9;    July &amp;#x9;    August &amp;#x9;    September &amp;#x9;    October &amp;#x9;    November &amp;#x9;    December' rowName='Paid on : ' /&gt;">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                      <ui:Target.WaitForReady>
+                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                      </ui:Target.WaitForReady>
+                    </ui:Target>
+                  </ui:SelectItem.Target>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:SelectItem>
+                <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'Year'" sap:VirtualizedContainerService.HintSize="338,52" sap2010:WorkflowViewState.IdRef="SelectItem_4" Item="[datetime_PaymentPaidOn.ToString(&quot;yyyy&quot;)]">
+                  <ui:SelectItem.Items>
+                    <scg:List x:TypeArguments="x:String" Capacity="32">
+                      <x:String>DD</x:String>
+                      <x:String>01</x:String>
+                      <x:String>02</x:String>
+                      <x:String>03</x:String>
+                      <x:String>04</x:String>
+                      <x:String>05</x:String>
+                      <x:String>06</x:String>
+                      <x:String>07</x:String>
+                      <x:String>08</x:String>
+                      <x:String>09</x:String>
+                      <x:String>10</x:String>
+                      <x:String>11</x:String>
+                      <x:String>12</x:String>
+                      <x:String>13</x:String>
+                      <x:String>14</x:String>
+                      <x:String>15</x:String>
+                      <x:String>16</x:String>
+                      <x:String>17</x:String>
+                      <x:String>18</x:String>
+                      <x:String>19</x:String>
+                      <x:String>20</x:String>
+                      <x:String>21</x:String>
+                      <x:String>22</x:String>
+                      <x:String>23</x:String>
+                      <x:String>24</x:String>
+                      <x:String>25</x:String>
+                      <x:String>26</x:String>
+                      <x:String>27</x:String>
+                      <x:String>28</x:String>
+                      <x:String>29</x:String>
+                      <x:String>30</x:String>
+                      <x:String>31</x:String>
+                    </scg:List>
+                  </ui:SelectItem.Items>
+                  <ui:SelectItem.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="fe56fa7c-6c76-4d64-b936-6cc3114d670b" InformativeScreenshot="39b5c3ef5423bd767769da461e7898af" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tag='SELECT' innertext='Year &amp;#x9;    1991 &amp;#x9;    1992             1993             1994 &amp;#x9;    1995 &amp;#x9;    1996 &amp;#x9;    1997 &amp;#x9;    1998 &amp;#x9;    1999 &amp;#x9;    2000 &amp;#x9;    2001 &amp;#x9;    2002 &amp;#x9;    2003 &amp;#x9;    2004             2005             2006 &amp;#x9;    2007 &amp;#x9;    2008 &amp;#x9;    2009 &amp;#x9;    2010 &amp;#x9;    2011 &amp;#x9;    2012 &amp;#x9;    2013             2014 &amp;#x9;    2015 &amp;#x9;    2016             2017             2018 &amp;#x9;    2019 &amp;#x9;    2020 &amp;#x9;    2021 &amp;#x9;    2022 &amp;#x9;    2023 &amp;#x9;    2024 &amp;#x9;    2025 &amp;#x9;    2026 &amp;#x9;    2027 &amp;#x9;    2028             2029             2030 &amp;#x9;    2031 &amp;#x9;    2032 &amp;#x9;    2033 &amp;#x9;    2034 &amp;#x9;   *' rowName='Paid on : ' /&gt;">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                      <ui:Target.WaitForReady>
+                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                      </ui:Target.WaitForReady>
+                    </ui:Target>
+                  </ui:SelectItem.Target>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:SelectItem>
+                <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'Hours'" sap:VirtualizedContainerService.HintSize="338,52" sap2010:WorkflowViewState.IdRef="SelectItem_5" Item="[datetime_PaymentPaidOn.ToString(&quot;hh&quot;)]">
+                  <ui:SelectItem.Items>
+                    <scg:List x:TypeArguments="x:String" Capacity="32">
+                      <x:String>DD</x:String>
+                      <x:String>01</x:String>
+                      <x:String>02</x:String>
+                      <x:String>03</x:String>
+                      <x:String>04</x:String>
+                      <x:String>05</x:String>
+                      <x:String>06</x:String>
+                      <x:String>07</x:String>
+                      <x:String>08</x:String>
+                      <x:String>09</x:String>
+                      <x:String>10</x:String>
+                      <x:String>11</x:String>
+                      <x:String>12</x:String>
+                      <x:String>13</x:String>
+                      <x:String>14</x:String>
+                      <x:String>15</x:String>
+                      <x:String>16</x:String>
+                      <x:String>17</x:String>
+                      <x:String>18</x:String>
+                      <x:String>19</x:String>
+                      <x:String>20</x:String>
+                      <x:String>21</x:String>
+                      <x:String>22</x:String>
+                      <x:String>23</x:String>
+                      <x:String>24</x:String>
+                      <x:String>25</x:String>
+                      <x:String>26</x:String>
+                      <x:String>27</x:String>
+                      <x:String>28</x:String>
+                      <x:String>29</x:String>
+                      <x:String>30</x:String>
+                      <x:String>31</x:String>
+                    </scg:List>
+                  </ui:SelectItem.Items>
+                  <ui:SelectItem.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="fe56fa7c-6c76-4d64-b936-6cc3114d670b" InformativeScreenshot="420855c35da146e432a1a8968af77bd3" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tag='SELECT' innertext='HH    01     &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;   02 &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;   03                                    04 &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;   05 &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;   06 &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;   07 &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;   08 &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;   09 &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;   10 &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;   11 &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;   12' rowName='Paid on : ' /&gt;">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                      <ui:Target.WaitForReady>
+                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                      </ui:Target.WaitForReady>
+                    </ui:Target>
+                  </ui:SelectItem.Target>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:SelectItem>
+                <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'Minutes'" sap:VirtualizedContainerService.HintSize="338,52" sap2010:WorkflowViewState.IdRef="SelectItem_6" Item="[datetime_PaymentPaidOn.ToString(&quot;mm&quot;)]">
+                  <ui:SelectItem.Items>
+                    <scg:List x:TypeArguments="x:String" Capacity="50">
+                      <x:String>MM</x:String>
+                      <x:String>01</x:String>
+                      <x:String>02</x:String>
+                      <x:String>03</x:String>
+                      <x:String>04</x:String>
+                      <x:String>05</x:String>
+                      <x:String>06</x:String>
+                      <x:String>07</x:String>
+                      <x:String>08</x:String>
+                      <x:String>09</x:String>
+                      <x:String>10</x:String>
+                      <x:String>11</x:String>
+                      <x:String>12</x:String>
+                      <x:String>13</x:String>
+                      <x:String>14</x:String>
+                      <x:String>15</x:String>
+                      <x:String>16</x:String>
+                      <x:String>17</x:String>
+                      <x:String>18</x:String>
+                      <x:String>19</x:String>
+                      <x:String>20</x:String>
+                      <x:String>21</x:String>
+                      <x:String>22</x:String>
+                      <x:String>23</x:String>
+                      <x:String>24</x:String>
+                      <x:String>25</x:String>
+                      <x:String>26</x:String>
+                      <x:String>27</x:String>
+                      <x:String>28</x:String>
+                      <x:String>29</x:String>
+                      <x:String>30</x:String>
+                      <x:String>31</x:String>
+                      <x:String>32</x:String>
+                      <x:String>33</x:String>
+                      <x:String>34</x:String>
+                      <x:String>35</x:String>
+                      <x:String>36</x:String>
+                      <x:String>37</x:String>
+                      <x:String>38</x:String>
+                      <x:String>39</x:String>
+                      <x:String>40</x:String>
+                      <x:String>41</x:String>
+                      <x:String>42</x:String>
+                      <x:String>43</x:String>
+                      <x:String>44</x:String>
+                      <x:String>45</x:String>
+                      <x:String>46</x:String>
+                      <x:String>47</x:String>
+                      <x:String>48</x:String>
+                      <x:String>49</x:String>
+                    </scg:List>
+                  </ui:SelectItem.Items>
+                  <ui:SelectItem.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="fe56fa7c-6c76-4d64-b936-6cc3114d670b" InformativeScreenshot="6678456180e0d933514c663c9d8c5e08" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tag='SELECT' innertext='MM01 &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;        02 &amp;#x9;   &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9; 03             &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;         04             &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;05 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;06 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;07 &amp;#x9;   &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9; 08 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;09 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;10 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;11 &amp;#x9;   &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9; 12 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;13 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;14 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;15             &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;16             &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;17 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;18 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;19 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;20 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;21 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;22 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;23 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;24             &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;25 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;26 &amp;#x9;    &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;27             &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;*' rowName='Paid on : ' /&gt;">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                      <ui:Target.WaitForReady>
+                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                      </ui:Target.WaitForReady>
+                    </ui:Target>
+                  </ui:SelectItem.Target>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:SelectItem>
+                <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'TimeTag'" sap:VirtualizedContainerService.HintSize="338,52" sap2010:WorkflowViewState.IdRef="SelectItem_7" Item="AM">
+                  <ui:SelectItem.Items>
+                    <scg:List x:TypeArguments="x:String" Capacity="4">
+                      <x:String>AM</x:String>
+                      <x:String>PM</x:String>
+                    </scg:List>
+                  </ui:SelectItem.Items>
+                  <ui:SelectItem.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="fe56fa7c-6c76-4d64-b936-6cc3114d670b" InformativeScreenshot="2fafcd3bef30a2394de055c18156f4fb" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tag='SELECT' innertext='AM &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;                                                                        PM' rowName='Paid on : ' /&gt;">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                      <ui:Target.WaitForReady>
+                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                      </ui:Target.WaitForReady>
+                    </ui:Target>
+                  </ui:SelectItem.Target>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:SelectItem>
+              </Sequence>
+              <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'Bill Collector Name'" sap:VirtualizedContainerService.HintSize="497,135" sap2010:WorkflowViewState.IdRef="SelectItem_8" Item="[str_BillCollector.ToUpper.Trim]">
+                <ui:SelectItem.Items>
+                  <scg:List x:TypeArguments="x:String" Capacity="8">
+                    <x:String>CHARAN TEJA</x:String>
+                    <x:String>KIRAN KUMAR</x:String>
+                    <x:String>RAVI RAO</x:String>
+                    <x:String>RAMA KRISHNA</x:String>
+                    <x:String>SUHAS BABU</x:String>
+                  </scg:List>
+                </ui:SelectItem.Items>
+                <ui:SelectItem.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ed3cb496-c7d3-4bc1-acde-564a827f5421" InformativeScreenshot="480dfad412e56cb6590d294eb80f9f56" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill/*' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tag='SELECT' innertext='CHARAN TEJA &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;KIRAN KUMAR &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;RAVI RAO &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;RAMA KRISHNA &amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;&amp;#x9;SUHAS BABU' rowName='Bill Collector' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:SelectItem.Target>
+              </ui:SelectItem>
+              <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'Mathematical Expression'" sap:VirtualizedContainerService.HintSize="497,107" sap2010:WorkflowViewState.IdRef="GetValue_1">
+                <ui:GetValue.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3f37e1fe-8ce1-419c-8f77-b25d40fe3428" InformativeScreenshot="3ee27c2e09abd5324b0589bed7420d41" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill*' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl id='mathExp' tag='INPUT' type='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:GetValue.Target>
+                <ui:GetValue.Value>
+                  <OutArgument x:TypeArguments="x:String">[str_MathsExpr]</OutArgument>
+                </ui:GetValue.Value>
+              </ui:GetValue>
+              <Assign DisplayName="Assign - Solve Mathematical Expression" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_5">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Int32">[int_MathResult]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Int32">[CInt(Split( str_MathsExpr, " ")(0)) + CInt(Split( str_MathsExpr, " ")(1) + Split( str_MathsExpr, " ")(2))]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into 'Enter Solved Math Result'" sap:VirtualizedContainerService.HintSize="434,135" sap2010:WorkflowViewState.IdRef="TypeInto_4" Text="[int_MathResult.ToString]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1ea637d9-2b4b-431f-974e-35ccb48000c9" InformativeScreenshot="4d780ad026d46cc2f66687e20d5ae26f" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill*' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl id='mathResult' tag='INPUT' type='text' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <uix:NCheck Action="Check" DisplayName="Check/Uncheck 'Checkbox'" sap:VirtualizedContainerService.HintSize="434,157" sap2010:WorkflowViewState.IdRef="NCheck_1" ScopeIdentifier="d5a0beae-927b-43e0-ab50-591211c8ff39" Version="V3">
+                <uix:NCheck.Target>
+                  <uix:TargetAnchorable BrowserURL="https://botsdna.com/PayPowerBill/DAE.html" DesignTimeRectangle="423, 635, 13, 13" DesignTimeScaleFactor="1" ElementType="CheckBox" FriendlyName="'Checkbox'" FullSelectorArgument="&lt;webctrl tag='TABLE' idx='*' /&gt;&lt;webctrl tag='INPUT' type='checkbox' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl id='tCheck' type='checkbox' tag='INPUT' class='' aaname='' /&gt;" Guid="c9735834-7605-448c-b588-977080e4952b" InformativeScreenshot="b723502aa2dd872f4e0f26b46bac387f.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill*' /&gt;" SearchSteps="FuzzySelector" Version="V1" Visibility="Interactive">
+                    <uix:TargetAnchorable.Anchors>
+                      <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                        <uix:Target DesignTimeRectangle="824, 621, 137, 42" ElementType="Button" FriendlyName="'PAY NOW'" FullSelectorArgument="&lt;webctrl tag='TABLE' idx='*' /&gt;&lt;webctrl tag='INPUT' aaname='PAY NOW' type='button' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl id='bill' type='button' tag='INPUT' class='button' aaname='PAY NOW' check:text='PAY NOW' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAI0AAAAuCAYAAAAV1prlAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMlSURBVHhe7ZZRbuMwEEN75UWvU+xNusfIHqNHyEoDcUCPKSXBBvIPCTx0YlGy7GGUftwt60U5NNbLytB8tMqYFVCWymQMA2WpTMYwUJbKZAwDZalMxjBQlspkDANlqUzGMFCWymQMA2WpTMYwUJbKZAwDZalMxjBQlspkDANlqUzGMFCWymQMA2WpTLv5/hmbEbr9Pvs//4zBv8frt3H5i64xuI8c/3W/x3BZE3y1693wORsrOtxjrK2eBXv6bp461p/npz1rvb4bKEtl2k28ONWs9pK76svu/tto1OFlLxqPoKnmBJjbpJo7C00EtVzHvXgdGQC652lsPPt0vxuBslSm3UxD04hm8Ri9TNUI1bBONHdyj4Aa2FVPIxWa1b5r02Xouqdd++p7LmN4jtmpuRMoS2XazcPQ0Avlz7IRjVivzmlaNmCE5taaFdNLGE/3euIkODzX8PMeYs0+LsaWgdwMlKUy7Wb1gurY4XSZNW4EIHzDo35yDiA0zad+ympowkOfFQcPrY/x/mz43J+Lx+rnK4GyVKbdzEJz+qlpf7u4mbOfHcwNTQJ5oDQ11kXDGzU0p5NHgD3gBOnPmYEf98OzrMauBspSmXYToZmIX5wKV20ME42fjJ0YjaoBRSPfEZqYM/YfYzSfP9exq4GyVKbdzE6aA6OpM6mj/JnGJjU0jZjf1INb13qmsSfPCGIPUV8vT5bOuH/eq5FjFwNlqUy7eSY00YAmdWrM5v9vaDr4+TutNQKw+gk57YuCof5nwbU+T30JrgLKUpl280xoVh4EqjbwHaFBOEJlreW+x7y6pz7np83pU+sXIE6fMbYK426gLJVpNw9DMxow/faNhh+O+8ZbQtOIdbrEWvUf5g5CrNbCmFprNXYlUJbKtJtHoUHTVv/QxhrlZb8rNBibrZWhIk33Or4ANeAB7rN4F1cAZalMxjBQlspkDANlqUzGMFCWymQMA2WpTMYwUJbKZAwDZalMxjBQlspkDANlqUzGMFCWymQMA2WpTMYwUJbKZAwDZalMxjBQlspkDANlqUzGMFCWymQMA1FpWc/JobFe1P3+Dz/WpHFv7K3dAAAAAElFTkSuQmCC" SearchSteps="FuzzySelector, Image" />
+                      </scg:List>
+                    </uix:TargetAnchorable.Anchors>
+                  </uix:TargetAnchorable>
+                </uix:NCheck.Target>
+              </uix:NCheck>
+              <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'PAYNOW Bill'" sap:VirtualizedContainerService.HintSize="434,107" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="9737e3a7-b7a7-4a68-90bd-38bc1c602afb" InformativeScreenshot="7e786afdd94d74d8f776169e2126ad01" Selector="&lt;html app='chrome.exe' title='https://botsdna.com/PayPowerBill*' /&gt;&lt;webctrl tag='TABLE' idx='*' /&gt;&lt;webctrl tag='INPUT' aaname='PAY NOW' type='button' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:Click.Target>
+              </ui:Click>
+            </Sequence>
+          </ActivityAction>
+        </uix:NApplicationCard.Body>
+        <uix:NApplicationCard.TargetApp>
+          <uix:TargetApp Area="0, 0, 0, 0" BrowserType="Chrome" IconBase64="iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAbxSURBVFhHpZZtTFvnFcf9pWuypg3tmjVrGmLeEoMBG2PaJBDb2CkvyQJpvlXtFqRpmrSXT5s67a3pl0nTptXkhdAklEsCbZdG3VsrVe3AhhBCs3ZDi5ZAo21OA5hAOztNmrXhXj9n//M8j415SUe7I/30P+fh+vzPufcasC03YgF3zkzQ0zITrDLAyPshb3ImVEXTQS/NBDn3RmeClcZ0qHIvX6s/9v/HVIPbfjVU1com2kxcra2k6VovqBQM14sIVBpTAbddt/nsoTb2htlUGgWUWcYQ9dWAR0wFOPcgV8r1VMCj8AOfZ59uufzgyWES00a6sUfm8ww0cTZiuPZViLi/Qp1xrohNbV7m3ZiurXChUSzbIIO/QjDKUBlpE4r73BmdhE5ucys4V/X/HoI3h1EsvYFSjTaa9Kmm8W3aSDXPMJGmxkWTNS4BBaoer3ZhCMfSQ/Azh1FMGWU1z5ipxnIA1hq3kDUbaENlJHMxLmul49XljFDqii35LZnwucMZE4XI3khvo41Uzg1lzc1l7aIrOGO0KV3ZupAycWVLWVjbqnC/tNve/h3/nAmboqk2I7mNNpn57jfoxss9ZMYnKR3i5rskZl4la2QXWecqGcGaYn3LQ5JzHpx5BM5kTcNZ70PlS3uMbUYzjYUq1Fb6dknFxDKvr6YbJ3u0JVE8Kah/bBaYdGkqpU8xzNSLZL3jJ/OtChgxbgzhxjDQYbeqoajVXXAbu3M8LzxGzL4fBjO3io1Z39tSRuN1W+nWpTFp8JeYSd8yPqKqZ65R1T4N8qbwdYqOzsprxM0xst6ugZmLDZUOc85aDi3HEOVJGsG74H5hd4u7ZzdVANb+Jq80ZfCsBOv133TLxkein5AXhhmezso1R3ENh4h3K7PhMk1pljJOMXumpMXm7m42ALm6m4S7p1k8+Ys6ury5lN7b7BTMxGP1siFvV/l0UuLROse1eefv4C5xpC7sFdZZJ5lnS8hagtRwiWFzdTdHXScwwIkmTTO9useLIZwUe8RJN177nWy289kPqeJnyTlglNF0rutvdt6QnxFTJ4R5thhm2TgwlINS0NRQ8Yit/HhTsvz4LkpT1rWLth9spL/7yij2cIm4dWmUxuIWudF8MYnbkKTJJF7MTyZguBGGmiEJMSZInS1K2MqMr8JUImSu659/u5piVcWCN4lcnCXXTxNLA7P5dYLKoRH9QlpDRWSeKSSLQW4NaZV1gbCVdu6kUpiWGjuF1C6lj7Q30vkap2zSd/EWlaHpQtgoW7PP+zA0h3WmAEb5wjoDhgowTD7O5uABks7OHUKxk6BAqvjeUz5hxidoMpGi0p/8+zMxiscmProAkzwyB/Ogdgxhl7XKN3CdsJU8v+OvJR2NpNhBqGXuZH2+UQz2n5SbtHRcJycaO38MWD+Ful9dk59JTZ+CGRvlCnMwlyzJBrBecG4Oro/aHB0NRvGxRpqjQQ7gONYgOP/6a0/JZn/+1yyVwLwYKP1A5nP13HkvHhmH9fYWMk+vBw/B9CHBqnOyWE+vM2yOow0tIGPIyPpovQCsdPy8+ioe6rtJjh99QA6YSF0Izg/1/kdee228E4brYLYO2z6I/EGYK6y0Dqzba7MbgZziI/XJTUfqKRsH69E6wXi79ojR9/8hG//pwi0K/jJJm2CYzdeOfUjn/qlevInEu5QYLCFz4CuatTBdK9JqnX5A5hTNUX+WNz1X37rpuTraqJH5kTqRroHwGntE1/nfSgOOi5OWHIaZwEuaDr6m849bsN1aGD+QwWLt/7JUa2CNsPrXGNKcw9HeYN/Y/igxRVrTeRaisH27CPQ8Sa+MvkEX9R3hGL9+lYy/vUJP/P4H5O/wwWiNYkBr//0ytwbuFzIH2H7+f0ZFbaHWosPbKU1hG+ujxKaFhyWkNCT4ZxldwKk/FMHkS8pU6n3YVipZyFlTA/ct/k/ZHg7kFBwOxQraVOOCQyEqBKx8JpXP2ubX2Tze9TDM7hVm9F4YAlaAM605wormxLTl4sAQ9oK2YCzdMP9gkApA/qGgkHCu66XOL7+JZxxdjQHuAathuBqGUNSa2KJbvzB4iPwDtTHZ9EAt5R2sFQznafJY8XNWmR8I0ve7y8mM3I1N71EKrOgqmK4SnM9G7ob5ik83TwcPkbe/NgbIfiAg8vYHpMochvb9Kk9T076VLr+B5xxZxabQu+ZhRe6Kfbxc8+zAIM/YW2F+W/wYxi86Xs4ns28ljL4oMSMrBNdmBPStDGe+758n+G7khv3GhrCfNrT6Re6zPsF5btgn6+q2zTBZobmTzF4QuTNp9q5s/fj1z7H17QKD5Kz/9bYWDNCFAaLQJKCTp/A7PXJHItX7hZFU7wpjtu+OluVvbLP9F5lmWAkTeM7rAAAAAElFTkSuQmCC" InformativeScreenshot="5ece204888b0469b5ae5c9c033e5afc1.jpg" />
+        </uix:NApplicationCard.TargetApp>
+      </uix:NApplicationCard>
+    </Sequence>
+  </Sequence>
+</Activity>
