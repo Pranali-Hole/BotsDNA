@@ -1,0 +1,379 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_Ui_Browser" Type="InArgument(ui:Browser)" />
+    <x:Property Name="out_dt_ServerInfo" Type="OutArgument(sd:DataTable)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1240,2794</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="38">
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Windows.Forms</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Models</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="112">
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
+      <AssemblyReference>Microsoft.Win32.Primitives</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Windows.Forms</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="690,2729" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="500" Name="check_HDDsize" />
+      <Variable x:TypeArguments="s:String[]" Name="arr_Applications" />
+      <Variable x:TypeArguments="x:String" Name="Application" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="648,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
+    <ui:LogMessage DisplayName="Log Message - Current Request Processing" sap:VirtualizedContainerService.HintSize="648,92" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Request ID: &quot; + in_TransactionItem(&quot;RequestID&quot;).ToString]" />
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Browser Chrome: Server Setup" sap:VirtualizedContainerService.HintSize="648,2377" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InUiElement="[in_Ui_Browser]" InteractionMode="DebuggerApi" ScopeGuid="bdf1fbb4-238d-4bbc-97d9-e12e6d448325" Version="V2">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="614,2240" sap2010:WorkflowViewState.IdRef="Sequence_11">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="ui:UiElement" Name="Table_Found" />
+              <Variable x:TypeArguments="ui:Browser" Name="Ui_attch_Browser" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayBefore="{x:Null}" DelayAfter="3000" DisplayName="Select Item 'SELECT  OS'" sap:VirtualizedContainerService.HintSize="572,135" sap2010:WorkflowViewState.IdRef="SelectItem_1" Item="[in_TransactionItem(&quot;OS&quot;).ToString.Trim]">
+              <ui:SelectItem.Items>
+                <scg:List x:TypeArguments="x:String" Capacity="16">
+                  <x:String>WINDOWS NT</x:String>
+                  <x:String>WINDOWS 7</x:String>
+                  <x:String>WINDOWS 8</x:String>
+                  <x:String>WINDOWS 10</x:String>
+                  <x:String>Windows Server 2019</x:String>
+                  <x:String>Windows Server 2016</x:String>
+                  <x:String>Windows Server 2012 R2</x:String>
+                  <x:String>Windows Server 2012</x:String>
+                  <x:String>Windows Server 2008 R2</x:String>
+                  <x:String>WINDOWS CE</x:String>
+                </scg:List>
+              </ui:SelectItem.Items>
+              <ui:SelectItem.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6e4df173-5e7b-414a-82be-fa2891f9f6a5" InformativeScreenshot="e8b0fbb0ee0996284d2bf3c2b295eb01" Selector="&lt;html app='chrome.exe' title='Server Setup' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tag='LABEL' aaname='Choose Operating System (OS):' /&gt;&lt;nav up='2' /&gt;&lt;webctrl tag='SELECT' aaname='Choose Operating System (OS):' name='os' /&gt;" WaitForReady="INTERACTIVE">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                </ui:Target>
+              </ui:SelectItem.Target>
+            </ui:SelectItem>
+            <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'SELECT  RAM'" sap:VirtualizedContainerService.HintSize="572,135" sap2010:WorkflowViewState.IdRef="SelectItem_3" Item="[in_TransactionItem(&quot;RAM&quot;).ToString.Trim]">
+              <ui:SelectItem.Items>
+                <scg:List x:TypeArguments="x:String" Capacity="4">
+                  <x:String>8 GB</x:String>
+                  <x:String>16 GB</x:String>
+                  <x:String>32 GB</x:String>
+                  <x:String>64 GB</x:String>
+                </scg:List>
+              </ui:SelectItem.Items>
+              <ui:SelectItem.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="a8994672-cb40-436c-8a8e-d9f06f33e015" InformativeScreenshot="e79108db904375bf73f96109f6de3f91" Selector="&lt;html app='chrome.exe' title='Server Setup' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tag='TD' aaname='  ' rowName='  RAM Size:' /&gt;&lt;nav up='1' /&gt;&lt;webctrl id='Ram' tag='SELECT' name='Ram' rowName='  RAM Size:' /&gt;">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                  <ui:Target.WaitForReady>
+                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                  </ui:Target.WaitForReady>
+                </ui:Target>
+              </ui:SelectItem.Target>
+            </ui:SelectItem>
+            <Assign DisplayName="Assign - HDD Size" sap:VirtualizedContainerService.HintSize="572,82" sap2010:WorkflowViewState.IdRef="Assign_10">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[check_HDDsize]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[in_TransactionItem("HDD").ToString.Trim]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <If Condition="[in_TransactionItem(&quot;HDD&quot;).ToString &lt;&gt; &quot;1000 TB&quot;]" DisplayName="If - HDD value not in list" sap:VirtualizedContainerService.HintSize="572,427" sap2010:WorkflowViewState.IdRef="If_2">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <If.Then>
+                <Sequence sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <uix:NCheck Action="Check" DisplayName="Check - 'HDD Size'" sap:VirtualizedContainerService.HintSize="334,157" sap2010:WorkflowViewState.IdRef="NCheck_2" ScopeIdentifier="bdf1fbb4-238d-4bbc-97d9-e12e6d448325" Version="V3">
+                    <uix:NCheck.Target>
+                      <uix:TargetAnchorable BrowserURL="https://botsdna.com/server/" DesignTimeRectangle="589, 408, 13, 13" DesignTimeScaleFactor="1" ElementType="RadioButton" FriendlyName="'INPUT hdd'" FullSelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl id='hdd' tableRow='3' tag='INPUT' /&gt;" FuzzySelectorArgument="[string.Format(&quot;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl id='hdd' type='radio' tag='INPUT' class='' aaname='{0}' /&gt;&quot;, check_HDDsize)]" Guid="8a73def8-3bf5-4298-8ff0-8692f8b9ca65" ImageBase64="" InformativeScreenshot="f3592e6738fb2bb09bb564a40f38e867.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Server Setup' /&gt;" SearchSteps="FuzzySelector" Version="V1" Visibility="Interactive">
+                        <uix:TargetAnchorable.Anchors>
+                          <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                            <uix:Target DesignTimeRectangle="611, 399, 78, 27" ElementType="Text" FriendlyName="'unchecked'" FullSelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tableRow='3' tag='LABEL' /&gt;" FuzzySelectorArgument="[string.Format(&quot;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl type='' tag='LABEL' class='' aaname='{0}' check:innerText='{0}' /&gt;&quot;, check_HDDsize)]" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAFIAAAAfCAYAAAB06popAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAUsSURBVGhD7ZjPSyNJFMf3z/CvyN3bgsypT+IhQcgcHIQIEgURBXFhJmDWg4EheGgQ5xAWkUBgBnHJITJgLgGhPcRLAiuRoOQQJMSAxsN3X3VVp6s71T/UPvYH6tDV1VWvv/Xq1av6AzGREAsZEbGQERELGRGxkBERCxkRsZARoRSyV9eR0zSkZj4hlZjHxtYPGD3x0pMHVJepPfvGUTZx0RdNHAxxW8lj4082joallQNctIfi3TsZdFA/ySOXTCJtjU/2Z5d3UKoY6D5Rm0YZZ3e8OaNZkG1Vl7SWxvaWjurVA8biOzcuIYdofk+bRrCPswvzkkFpHF95/+i4nrfbSmXp8Ea0kCHR10lALY+6mKBeLY/MTNJ3DG/YpHxFNkF2Lx/QD3cwehaviPGdgWphZWLf8ZV4YfH6gIst4TgzRTRFtcnzEN2rMgoL/H36s44WmxAXTiGbOjLSz5kMDJQ+i0HmaBDJQJsOKotrqN6LxwC6pS/U3zxKDotf0NijcRLh++HQ5BeSpn2ZQgMjUati1CjSZH2C3hAVEuPfef6PbiEtngwca3wi0ls1PIpqC4eQze+b6p/o1/A3zTbrRGXEY3UHWV3leQqsvpL/oCuqJlwV+WrYu/RcQm56lTXuactlBEYfoldew27lQTxJ0Ni+QhK22F9w9p+oFEhCdlAte4lB3vKNCzltxA1KbKZYLFrPo1Jr4/FVvFLAftw0pmCIGonnSxRNQ/NoKD3fxf1P7Jrt3d7tA41ReaeQ9njT4UG52ajgQVnD8bWoEEyEkcvsCk6vVbFuiPoWb6P0ChYikuz99DgqWofzfDyVd7+VMEJS6Fsy20xPXEghhUcmPDyFAvLo7gb1ygG2Z9lArGjI/XKLRXFGhIji7xdRJ2Pv/GqhZey+lN79VgKFHJIGYq/QaMMRtRbhhGRLjozeKHVEhQ+0A9b3ePBnsaTiiCX082a9Yuc0sYVcCoq50jILFj0EEyHdzvJCTmLg7C+ezaRmaR+R0ieLUEI+nm/SLNBMhYlbJkMY+3zZOTYOnxjDkXLRIC+b/HiQkF75res7qT/PQqlPcyDauwgW8qkBfe4d+d0T9+JUQl4q1JcwKkjIbJD3T+JVCO9l9C/pP3j71NwBDLcgXkv79QW9dg2nG8IjKWRtHxlTaVaAkMyzku9eOsa+2zA7rgUJGTjmgNIo88eoUF7nlz9acHuo7CtyuMAYKaVaVDKuyfMVkn2YpSUWxkgVfEeXDeujusoN2f2lOjdaMTTMri0v2XDp0uQ4qAobIYQE2jg1swoqjpXmIyQ7BWx/QERGr7wy5S3dE3aq8ViOlpd5ZQcuRpQgWx4SZtV8XEipjxnnCUwp5Ig63Vj/Geqk4A3zGIqt1640p/8vcswQn5ON+nyugsZYFSlJYgd15eWIzceFlFZBkEcyEbOr3iL2akVUJj2wA30DLUVjv7DQ0ll65E6NRJ4WQhAH7AxsXSgsFKc3EQk/IQPP2gTThp3VWTvfGGkd6s2bn+R0ybBke7Fse9K1LpZWErmjGm57PDG/OKTzrO4XFoQnLVI6YYo2xG2JBfJ33v68dnBh5XmJNAonBroDeyWMBx20zn8gZ146aNNhxXH7k0dd+pbBvm+efLVF3KlNOdpEyPG1rbZfyZ3L7jJE62iTC8zezyaxze4u71WnFhdkvHFofashs66HuPMMoN8W95FpLFmnHmEXv5Ns4Nbl7XbM8ysk/oJ9J6nCc7OJeRuxkBERCxkRsZAREQsZEbGQERELGQnA/xH8hi6zbiYAAAAAAElFTkSuQmCC" SearchSteps="FuzzySelector" />
+                          </scg:List>
+                        </uix:TargetAnchorable.Anchors>
+                      </uix:TargetAnchorable>
+                    </uix:NCheck.Target>
+                  </uix:NCheck>
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence sap:VirtualizedContainerService.HintSize="400,310" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message - Throw BRE" sap:VirtualizedContainerService.HintSize="358,92" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[&quot;1000 TB value does not fall within the specified range&quot;]" />
+                  <Throw DisplayName="Throw - Input HDD Size is not in list" Exception="[New BusinessRuleException(&quot;Input value does not fall within the specified range&quot;)]" sap:VirtualizedContainerService.HintSize="358,90" sap2010:WorkflowViewState.IdRef="Throw_3" />
+                </Sequence>
+              </If.Else>
+            </If>
+            <Assign DisplayName="Assign - Array of Applications to select" sap:VirtualizedContainerService.HintSize="572,82" sap2010:WorkflowViewState.IdRef="Assign_11">
+              <Assign.To>
+                <OutArgument x:TypeArguments="s:String[]">[arr_Applications]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="s:String[]">[Split( in_TransactionItem("Applications").ToString, ",").ToArray()]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each - Check Each Check box" sap:VirtualizedContainerService.HintSize="572,52" sap2010:WorkflowViewState.IdRef="ForEach`1_6" Values="[arr_Applications]">
+              <ui:ForEach.Body>
+                <ActivityAction x:TypeArguments="x:String">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="x:String" Name="currentItem" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="538,486" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Sequence DisplayName="For Each Check Each Check box" sap:VirtualizedContainerService.HintSize="496,394" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign DisplayName="Assign - Current Application" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_12">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[Application]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[currentItem.Trim]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <uix:NCheck Action="Check" DisplayName="Check Multiple  'Applications'" sap:VirtualizedContainerService.HintSize="434,157" sap2010:WorkflowViewState.IdRef="NCheck_3" ScopeIdentifier="bdf1fbb4-238d-4bbc-97d9-e12e6d448325" Version="V3">
+                        <uix:NCheck.Target>
+                          <uix:TargetAnchorable BrowserURL="https://botsdna.com/server/" DesignTimeRectangle="588, 447, 13, 13" DesignTimeScaleFactor="1" ElementType="CheckBox" FriendlyName="'Checkbox'" FullSelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl id='vehicle1' tableRow='4' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl id='vehicle1' type='checkbox' tag='INPUT' class='' aaname='' /&gt;" Guid="2307289e-6efd-47bd-8946-78ef278a0314" InformativeScreenshot="db96e00e122dfa12db0bd04e7821fbde.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Server Setup' /&gt;" SearchSteps="FuzzySelector" Version="V1" Visibility="Interactive">
+                            <uix:TargetAnchorable.Anchors>
+                              <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                <uix:Target DesignTimeRectangle="608, 436, 60, 31" ElementType="Text" FriendlyName="'7-Zip'" FullSelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl tableRow='4' tag='LABEL' /&gt;" FuzzySelectorArgument="[string.Format(&quot;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl type='' tag='LABEL' class='' aaname='{0}' check:innerText='{0}' /&gt;&quot;, Application)]" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAADwAAAAfCAYAAAC7xK7qAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANKSURBVFhH7ZdPS+NAGMb3Y/RT9DMIsqecPFWECFspKIg9LKIgLriC1oOFEvYQWOohyB6EQkWUHBTBXgKF9NBeXFhZKUoPpYe2YLuHZyfJm9qkySStLfinP3iheTNJ5pl55p3pJ3wwpoLfO1PB752p4NdG43IHYkTA2g8dXcq9BJfgDrQ9AfORz5wQkC1R8zA83UDyfI9PJE5Qo0cNJiu4foFdr070R3Qf2hO1D8NDHtvRJHLlum+Hq8oSvT+Js3tKTgiH4OqvFWxmNFRblHBgzb64dzPcSP85hnxepwsPyjKWTbECtnOPlJwcfYIrOFMq9NsDw5pRAVKhQ4mQFE84s1aBIljOEVfzDitPitBFq1vYhzisnbl0UM7EaJkkoU7YyjYhBY9oZw7dkvRs5VM/K3dQK+Yhr8xBTOuUs+g+6FDTScTJGe3SMVILVsEVhXUomvcyCid4VDv70dKRDbJyXUMuc4hdajffE/wIXTmClKDdJJHHXZENXnQOazER8Si1j8SQLTbpmWdCCR6vnZsop20rb6HAqWcGtVzSJZi4P8GmkY8tYffbBar/KN/6jdwqDcashLKrzyEEj9fObe0QcXMGBKTUALUGrL2nYGO7MwUf4Y5SPex7LKRrpyuDBY/Tzi0N8qzVEXHjEg1Kc2F25Qpmlh5cEk0UNqzvrCl/KWcRKJhn557d3OHTCe07Wc14n+de78FIgoFbec7zuUDB5bS/nRvqjlkoBoKtKffsta/ZwBkdYFaWrgeLiS8jCrYnIy47zxYBglk1HYed65dIUfWMH2hoU9oTdry9KtJvgxEFVxXRfC6lOgeXL5h97OXV+RFqr2oeQg+wcuNchvpAFwZBgr84/2xY2Gt4HVeuusgVzLNzWGqnSbKy977oxDhqskGhK4MuWwpcwZEdFNyDSPeWM4P/sDiCx2Dne/ZhsvIy6zDPyt16BeoW258dM9aEfkDFZ4FtP/Zea9ATbBxejnFrz2RNQ3aRTdSijFsPN/kLfrGdma22yMrDBFvjJn2C+iNrr2/7fuIIhdw+vs5Y3xJnlpD6qaHWPzh9BBStV0xPsHfR8mMq+M3w0QQ3VPsgsw51CMVvUDDbPUyhrgg502/X0iPywQQD/wH59wM7HjMZQwAAAABJRU5ErkJggg==" SearchSteps="FuzzySelector, Image" />
+                              </scg:List>
+                            </uix:TargetAnchorable.Anchors>
+                          </uix:TargetAnchorable>
+                        </uix:NCheck.Target>
+                      </uix:NCheck>
+                    </Sequence>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEach.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:ForEach>
+            <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click  'CreateServer'" sap:VirtualizedContainerService.HintSize="572,107" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+              <ui:Click.CursorPosition>
+                <ui:CursorPosition Position="Center">
+                  <ui:CursorPosition.OffsetX>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetX>
+                  <ui:CursorPosition.OffsetY>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetY>
+                </ui:CursorPosition>
+              </ui:Click.CursorPosition>
+              <ui:Click.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e2a20953-5a08-4e99-9695-83c38eaf167f" InformativeScreenshot="e903cc0dfc8d169faa62731b0b5a9b7b" Selector="&lt;html app='chrome.exe' title='Server Setup' /&gt;&lt;webctrl tag='TABLE' /&gt;&lt;webctrl id='CreateServer' tag='INPUT' aaname='Create Server' type='button' /&gt;">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                  <ui:Target.WaitForReady>
+                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                  </ui:Target.WaitForReady>
+                </ui:Target>
+              </ui:Click.Target>
+            </ui:Click>
+            <ui:OnUiElementAppear ContinueOnError="{x:Null}" RepeatForever="{x:Null}" WaitActive="{x:Null}" WaitVisible="{x:Null}" DisplayName="On Element Appear 'ServerIP Successfull'" FoundElement="[Table_Found]" sap:VirtualizedContainerService.HintSize="572,718" sap2010:WorkflowViewState.IdRef="OnUiElementAppear_1">
+              <ui:OnUiElementAppear.Body>
+                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="538,541" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Sequence DisplayName="Data Scraping" sap:VirtualizedContainerService.HintSize="496,453" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="ExtractDataTable" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:BrowserScope SearchScope="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" Browser="[Table_Found]" BrowserType="Chrome" DisplayName="Attach Browser 'ServerSet Page'" sap:VirtualizedContainerService.HintSize="434,342" sap2010:WorkflowViewState.IdRef="BrowserScope_2" InformativeScreenshot="c39715b2f7a11ea2ac5bd17a6013221a" UiBrowser="[Ui_attch_Browser]">
+                      <ui:BrowserScope.Body>
+                        <ActivityAction x:TypeArguments="x:Object">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                          </ActivityAction.Argument>
+                          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,195" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[out_dt_ServerInfo]" DisplayName="Extract Structured Data 'TABLE'" ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='1' columns_name_source='Longest'&gt;&lt;column name='Column-0' attr='text' /&gt;&lt;column name='Column-1' attr='text' /&gt;&lt;/extract-table&gt;" sap:VirtualizedContainerService.HintSize="334,107" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="0" SimulateClick="True">
+                              <ui:ExtractData.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0145b3fc-96cd-4e08-acf0-b7f2c980c601" InformativeScreenshot="acdf0883681ff4d3a22a583f745eb06c" Selector="&lt;webctrl tag='TABLE' /&gt;" WaitForReady="COMPLETE">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                </ui:Target>
+                              </ui:ExtractData.Target>
+                            </ui:ExtractData>
+                          </Sequence>
+                        </ActivityAction>
+                      </ui:BrowserScope.Body>
+                    </ui:BrowserScope>
+                  </Sequence>
+                </Sequence>
+              </ui:OnUiElementAppear.Body>
+              <ui:OnUiElementAppear.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7ff97b74-64ef-4b37-866b-662045f98fc0" InformativeScreenshot="aa3c00bda715b88331b5ef39ed4fe3b4" Selector="&lt;html app='chrome.exe' title='*' /&gt;&lt;webctrl id='serverIP' tag='DIV' innertext='Server Created Successfully..*' /&gt;" TimeoutMS="5000" WaitForReady="NONE" />
+              </ui:OnUiElementAppear.Target>
+            </ui:OnUiElementAppear>
+            <ui:GoBack Browser="[Ui_attch_Browser]" DisplayName="Go Back" sap:VirtualizedContainerService.HintSize="572,25" sap2010:WorkflowViewState.IdRef="GoBack_1" />
+            <ui:RefreshBrowser Browser="[in_Ui_Browser]" DisplayName="Refresh Browser" sap:VirtualizedContainerService.HintSize="572,25" sap2010:WorkflowViewState.IdRef="RefreshBrowser_1" />
+          </Sequence>
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp Area="0, 0, 0, 0" BrowserType="Chrome" IconBase64="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" InformativeScreenshot="83086b097cb0a9679a8393949e2c4d97.jpg" />
+      </uix:NApplicationCard.TargetApp>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </uix:NApplicationCard>
+  </Sequence>
+</Activity>
