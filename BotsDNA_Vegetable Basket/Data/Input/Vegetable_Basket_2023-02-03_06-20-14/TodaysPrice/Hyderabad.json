@@ -1,0 +1,22 @@
+{
+   "Vegitables":[
+      {
+         "Code":"VEG54454",
+         "Weight":"1KG",
+         "Price":"25/-",
+         "Name":"Redcabbage"
+      },
+      {
+         "Code":"VEG46278",
+         "Weight":"1KG",
+         "Price":"10/-",
+         "Name":"Spanich"
+      },
+      {
+         "Code":"VEG62312",
+         "Weight":"1KG",
+         "Price":"40/- ",
+         "Name":"Capiscum"
+      }
+   ]
+}

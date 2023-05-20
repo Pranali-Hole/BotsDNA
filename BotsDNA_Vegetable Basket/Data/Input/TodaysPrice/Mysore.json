@@ -1,0 +1,34 @@
+{
+   "Vegitables":[
+      {
+         "Code":"VEG16127",
+         "Weight":"1KG",
+         "Price":"50/-",
+         "Name":"Onion"
+      },
+      {
+         "Code":"VEG28231",
+         "Weight":"1KG",
+         "Price":"40/-",
+         "Name":"Potato"
+      },
+      {
+         "Code":"VEG10275",
+         "Weight":"1KG",
+         "Price":"25/-",
+         "Name":"LadyFinger"
+      },
+      {
+         "Code":"VEG54554",
+         "Weight":"1KG",
+         "Price":"30/-",
+         "Name":"Redchilli"
+      },
+      {
+         "Code":"VEG63215",
+         "Weight":"1KG",
+         "Price":"50/-",
+         "Name":"Carrot"
+      }
+   ]
+}

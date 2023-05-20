@@ -1,0 +1,22 @@
+{
+   "Vegitables":[
+      {
+         "Code":"VEG17124",
+         "Weight":"1KG",
+         "Price":"52/-",
+         "Name":"Beans"
+      },
+      {
+         "Code":"VEG59726",
+         "Weight":"1KG",
+         "Price":"25/-",
+         "Name":"Bellpepper"
+      },
+      {
+         "Code":"VEG47122",
+         "Weight":"1KG",
+         "Price":"32/-",
+         "Name":"Cauliflower"
+      }
+   ]
+}

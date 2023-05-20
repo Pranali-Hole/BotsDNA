@@ -1,0 +1,34 @@
+{
+   "Vegitables":[
+      {
+         "Code":"VEG76598",
+         "Weight":"1KG",
+         "Price":"40/-",
+         "Name":"BeetRoot"
+      },
+      {
+         "Code":"VEG53812",
+         "Weight":"1KG",
+         "Price":"25/-",
+         "Name":"Tomato"
+      },
+      {
+         "Code":"VEG62891",
+         "Weight":"1KG",
+         "Price":"35/-",
+         "Name":"Ginger"
+      },
+      {
+         "Code":"VEG35151",
+         "Weight":"1KG",
+         "Price":"40/-",
+         "Name":"Greenchilli"
+      },
+      {
+         "Code":"VEG71621",
+         "Weight":"1KG",
+         "Price":"45/-",
+         "Name":"Maize"
+      }
+   ]
+}
