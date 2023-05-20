@@ -1,0 +1,69 @@
+Init- Get Laest Items(colured text data) and add in queue
+Get-   1st join emails and strength table and create full schoolDB
+          2nd- get queue item
+Process- Craete PDF of latest item 
+Set- Send Email with PDF File to school person
+
+
+Colured - <webctrl id='tblDG71927' tableRow='144' tag='TABLE' />
+<webctrl parentid='Sport27' tableRow='5' tag='SPAN' />
+
+Uncolured- <webctrl id='tblDG51729' tableRow='133' tag='TABLE' />
+<webctrl tableCol='2' tableRow='5' tag='TD' />
+First Row TR/TD=1/1 1/12
+Second Row TR/TD=12/1 12/12
+
+Extract MetaData of Table
+
+<extract>
+	<row exact='1'>
+		<webctrl tag='TABLE' idx='2' />
+		<webctrl tag='TBODY' idx='1' />
+		<webctrl tag='TR' />
+		<webctrl tag='TD' />
+		<webctrl tag='DIV' idx='1' />
+		<webctrl tag='DIV' idx='1' />
+		<webctrl tag='DIV' />
+		<webctrl tag='TABLE' />
+		<webctrl tag='TBODY' idx='1' />
+	</row>
+	<column name='Product Name' attr='text' exact='1'>
+		<webctrl tag='TABLE' idx='2' />
+		<webctrl tag='TBODY' idx='1' />
+		<webctrl tag='TR' />
+		<webctrl tag='TD' />
+		<webctrl tag='DIV' idx='1' />
+		<webctrl tag='DIV' idx='1' />
+		<webctrl tag='DIV' />
+		<webctrl tag='TABLE' />
+		<webctrl tag='TBODY' idx='1' />
+		<webctrl tag='TR' idx='2' />
+		<webctrl tag='TD' idx='2' />
+	</column>
+	<column name='Product Code' attr='text' exact='1'>
+		<webctrl tag='TABLE' idx='2' />
+		<webctrl tag='TBODY' idx='1' />
+		<webctrl tag='TR' />
+		<webctrl tag='TD' />
+		<webctrl tag='DIV' idx='1' />
+		<webctrl tag='DIV' idx='1' />
+		<webctrl tag='DIV' />
+		<webctrl tag='TABLE' />
+		<webctrl tag='TBODY' idx='1' />
+		<webctrl tag='TR' idx='3' />
+		<webctrl tag='TD' idx='2' />
+	</column>
+	<column name='Price' attr='text' exact='1'>
+		<webctrl tag='TABLE' idx='2' />
+		<webctrl tag='TBODY' idx='1' />
+		<webctrl tag='TR' />
+		<webctrl tag='TD' />
+		<webctrl tag='DIV' idx='1' />
+		<webctrl tag='DIV' idx='1' />
+		<webctrl tag='DIV' />
+		<webctrl tag='TABLE' />
+		<webctrl tag='TBODY' idx='1' />
+		<webctrl tag='TR' idx='4' />
+		<webctrl tag='TD' idx='2' />
+	</column>
+</extract>
